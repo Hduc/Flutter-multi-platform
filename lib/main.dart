@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/bloc/todo_bloc.dart';
+import 'package:myapp/todo/todo_list_container.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,43 +17,11 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Todo List"),
         ),
-        body: TodoListContainer(),
-      ),
-    );
-  }
-}
-
-class TodoListContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          _buildHeader(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    var txtTodoController = TextEditingController();
-    return Row(
-      children: <Widget>[
-        Expanded(
-            child: TextFormField(
-          controller: txtTodoController,
-          decoration:
-              InputDecoration(labelText: "Add Todo", hintText: "Add todo"),
-        )),
-        SizedBox(
-          width: 20,
+        body: Provider<TodoBloc>.value(
+          value: TodoBloc(),
+          child: TodoListContainer(),
         ),
-        RaisedButton.icon(
-          onPressed: () {},
-          icon: Icon(Icons.add),
-          label: Text('Add'),
-        )
-      ],
+      ),
     );
   }
 }
