@@ -1,35 +1,41 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:severingthing/ui/detail_page.dart';
-import 'package:severingthing/ui/master_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:severingthing/bloc/bloc.dart';
+import 'package:severingthing/bloc/master_detail_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 768) {
-        return _TabletHomePage();
-      } else {
-        return _MobileHomePage();
-      }
-    });
-  }
+  _HomePage createState() => _HomePage();
 }
 
-class _TabletHomePage extends StatelessWidget {
+class _HomePage extends State<HomePage> {
+  MasterDetailBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = BlocProvider.of<MasterDetailBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(width: 300, child: MasterPage()),
-        Expanded(child: DetailPage())
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home"),
+      ),
+      body: BlocBuilder(
+          bloc: _bloc,
+          builder: (context, state) {
+            if (state is LoadedItemsState) {
+              return Center(
+                child:
+                    Text(state.selectedElement?.detail ?? "No item selected"),
+              );
+            } else {
+              return Container();
+            }
+          }),
     );
-  }
-}
-
-class _MobileHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MasterPage();
   }
 }
