@@ -10,8 +10,6 @@ class ButtomMenu extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _ButtomMenu extends State<ButtomMenu> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
