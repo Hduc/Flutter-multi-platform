@@ -1,47 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:severingthing/ui/detail_page.dart';
+import 'package:severingthing/ui/home_page.dart';
 
 class ButtomMenu extends StatefulWidget {
   @override
-  _ButtomMenu createState() => _ButtomMenu();
+  State<ButtomMenu> createState() => _ButtomMenu();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _ButtomMenu extends State<ButtomMenu> {
-  int _currentIndex = 0;
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  final List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    DetailPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        backgroundColor: colorScheme.surface,
-        selectedItemColor: colorScheme.onSurface,
-        unselectedItemColor: colorScheme.onSurface.withOpacity(.60),
-        selectedLabelStyle: textTheme.caption,
-        unselectedLabelStyle: textTheme.caption,
-        onTap: (value) {
-          // Respond to item press.
-          setState(() => _currentIndex = value);
-        },
-        items: [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            title: Text('Favorites'),
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-            title: Text('Music'),
-            icon: Icon(Icons.music_note),
-          ),
-          BottomNavigationBarItem(
-            title: Text('Places'),
-            icon: Icon(Icons.location_on),
-          ),
-          BottomNavigationBarItem(
-            title: Text('News'),
-            icon: Icon(Icons.library_books),
-          ),
+            icon: Icon(Icons.business),
+            label: 'Detail',
+          )
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }
