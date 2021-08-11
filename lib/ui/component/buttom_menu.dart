@@ -14,6 +14,9 @@ class _ButtomMenu extends State<ButtomMenu> {
   final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     DetailPage(),
+    DetailPage(),
+    DetailPage(),
+    DetailPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -33,8 +36,20 @@ class _ButtomMenu extends State<ButtomMenu> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Detail',
+            icon: Icon(Icons.chat),
+            label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.toggle_on),
+            label: 'Control',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.show_chart),
+            label: 'Report',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Setting',
           )
         ],
         currentIndex: _selectedIndex,

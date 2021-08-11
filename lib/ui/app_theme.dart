@@ -13,7 +13,7 @@ class AppTheme {
   static const Color shrineErrorRed = Color(0xFFC5032B);
 
   static const Color shrineSurfaceWhite = Color(0xFFFFFBFA);
-  static const Color shrineBackgroundWhite = Colors.white;
+  static const Color shrineBackgroundWhite = Colors.black;
 
   static const defaultLetterSpacing = 0.03;
 
