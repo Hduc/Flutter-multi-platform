@@ -15,8 +15,9 @@ class RestaurantRepository {
       var responseString = utf8.decode(bytes);
       return RestaurantModel.fromJson(jsonDecode(responseString));
     } else {
-      print("EEEE");
-      throw Exception();
+      // print("EEEE");
+      // throw Exception();
+      return new RestaurantModel();
     }
   }
 }

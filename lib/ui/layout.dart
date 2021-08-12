@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:severingthing/ui/component/buttom_menu.dart';
-import 'package:severingthing/ui/detail_page.dart';
+import 'package:severingthing/ui/pages/detail_page.dart';
 import 'package:severingthing/ui/master_page.dart';
 
 class Layout extends StatelessWidget {

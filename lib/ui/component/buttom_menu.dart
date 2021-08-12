@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:severingthing/ui/detail_page.dart';
-import 'package:severingthing/ui/home_page.dart';
+import 'package:severingthing/ui/pages/detail_page.dart';
+import 'package:severingthing/ui/pages/home_page.dart';
 
 class ButtomMenu extends StatefulWidget {
   @override

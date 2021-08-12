@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:severingthing/bloc/bloc.dart';
 import 'package:severingthing/model/item.dart';
-import 'package:severingthing/ui/detail_page.dart';
+import 'package:severingthing/ui/pages/detail_page.dart';
 
 class MasterPage extends StatefulWidget {
   @override
@@ -31,28 +31,26 @@ class _MasterPage extends State<MasterPage> {
       ),
       backgroundColor: Color(0xffefefef),
       body: BlocBuilder(
-        bloc: _bloc, 
-        builder: (context, state) {
-          if(state is LoadingItemsSate){
-            return Center(child: CircularProgressIndicator());
-          }
-          else if(state is NoItemsState){
-            return Center(child: Text("No Items"));
-          }
-          else if(state is LoadedItemsState){
-            return ListView.builder(
-              itemCount:state.elements.length,
-              itemBuilder: (context,index){
-                final item = state.elements[index];
-                return ListTile(
-                  title: Text(item.name),
-                  selected: item == state.selectedElement,
-                  onTap: () => _selectItem(context, item),
-                );
-              });
-          }
-          throw Exception("unexpected state $state");
-        }),
+          bloc: _bloc,
+          builder: (context, state) {
+            if (state is LoadingItemsSate) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is NoItemsState) {
+              return Center(child: Text("No Items"));
+            } else if (state is LoadedItemsState) {
+              return ListView.builder(
+                  itemCount: state.elements.length,
+                  itemBuilder: (context, index) {
+                    final item = state.elements[index];
+                    return ListTile(
+                      title: Text(item.name),
+                      selected: item == state.selectedElement,
+                      onTap: () => _selectItem(context, item),
+                    );
+                  });
+            }
+            throw Exception("unexpected state $state");
+          }),
     );
   }
 
