@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:severingthing/ui/app_theme.dart';
+import 'package:severingthing/res/theme.dart';
 import 'package:severingthing/ui/layout.dart';
 import 'bloc/master_detail_bloc.dart';
 

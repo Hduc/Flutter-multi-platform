@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:severingthing/bloc/bloc.dart';
-import 'package:severingthing/model/item.dart';
+import 'package:severingthing/data/model/item.dart';
 
 class MasterDetailBloc extends Bloc<MasterDetailEvent, MasterDetailState> {
   List<Item> _items = [];
@@ -20,12 +20,11 @@ class MasterDetailBloc extends Bloc<MasterDetailEvent, MasterDetailState> {
     yield* _loadItems();
   }
 
-  Stream<MasterDetailState> _loadItems() async*{
-    if(_items.isEmpty){
+  Stream<MasterDetailState> _loadItems() async* {
+    if (_items.isEmpty) {
       yield NoItemsState();
-    }
-    else{
-      final newState = LoadedItemsState([..._items],Item.formItem(_selected));
+    } else {
+      final newState = LoadedItemsState([..._items], Item.formItem(_selected));
       yield newState;
     }
   }

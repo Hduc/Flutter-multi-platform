@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:severingthing/model/item.dart';
+import 'package:severingthing/data/model/item.dart';
 
 abstract class MasterDetailState extends Equatable {
   const MasterDetailState();

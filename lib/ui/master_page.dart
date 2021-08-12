@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:severingthing/bloc/bloc.dart';
-import 'package:severingthing/model/item.dart';
+import 'package:severingthing/data/model/item.dart';
 import 'package:severingthing/ui/pages/detail_page.dart';
 
 class MasterPage extends StatefulWidget {

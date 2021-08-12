@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:severingthing/model/item.dart';
+import 'package:severingthing/data/model/item.dart';
 
 abstract class MasterDetailEvent extends Equatable {
   const MasterDetailEvent();
@@ -19,11 +19,11 @@ class AddItemEvent extends MasterDetailEvent {
   List<Object> get props => [element];
 }
 
-class SelectItemEvent extends MasterDetailEvent{
+class SelectItemEvent extends MasterDetailEvent {
   final Item selected;
 
   SelectItemEvent(this.selected);
 
-  @override 
+  @override
   List<Object> get props => [selected];
 }
