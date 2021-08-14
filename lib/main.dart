@@ -3,6 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:severingthing/common/notification_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:severingthing/common/routes.dart';
+import 'package:severingthing/ui/pages/home.page.dart';
+import 'package:severingthing/ui/pages/login.page.dart';
+import 'package:severingthing/ui/pages/login_biometric.page.dart';
+import 'package:severingthing/ui/pages/login_passcode.page.dart';
+import 'package:severingthing/ui/pages/sign_in_options.page.dart';
 import 'bloc/language_bloc.dart';
 
 void main() => runApp(const MyApp());
@@ -19,7 +24,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    NotificationService.getInstance().init();
+    //check init notification vs mobile No init in web
+    //NotificationService.getInstance().init();
     languageBloc.getLanguage();
   }
 
@@ -58,11 +64,11 @@ class _MyAppState extends State<MyApp> {
             },
             onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
             routes: {
-              Routes.signInOptions: (_) => const SignInOptionsUI(),
-              // Routes.signInUserPass: (_) => const LoginUI(),
-              // Routes.signInPasscode: (_) => const LoginPasscodeUI(),
-              // Routes.signInBiometric: (_) => const LoginBiometric(),
-              // Routes.home: (_) => const HomePageUI(),
+              Routes.signInOptions: (_) => const SignInOptionsPage(),
+              Routes.signInUserPass: (_) => const LoginPage(),
+              Routes.signInPasscode: (_) => const LoginPassCodePage(),
+              Routes.signInBiometric: (_) => const LoginBiometric(),
+              Routes.home: (_) => const HomePage(),
             },
           );
         });
