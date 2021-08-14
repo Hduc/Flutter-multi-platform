@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:severingthing/res/app_strings.dart';
 import 'dart:convert';
 
 import '../model/restaurant_model.dart';
@@ -8,7 +9,7 @@ import '../model/restaurant_model.dart';
 class RestaurantRepository {
   @override
   Future<RestaurantModel> getRestaurantData() async {
-    final response = await http.get(Uri.parse("url"));
+    final response = await http.get(Uri.parse(AppStrings.cricArticleUrl));
 
     if (response.statusCode == 200) {
       List<int> bytes = response.body.toString().codeUnits;

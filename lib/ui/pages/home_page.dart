@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:severingthing/bloc/bloc.dart';
-import 'package:severingthing/bloc/master_detail_bloc.dart';
+import 'package:severingthing/bloc/master_detail/bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override

@@ -1,3 +1,3 @@
-export 'master_detail_bloc.dart';
-export 'master_detail_event.dart';
-export 'master_detail_state.dart';
+export './master_detail/bloc.dart';
+export './master_detail/event.dart';
+export './master_detail/state.dart';

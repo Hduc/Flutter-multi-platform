@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:severingthing/res/theme.dart';
 import 'package:severingthing/ui/layout.dart';
-import 'bloc/master_detail_bloc.dart';
+import 'bloc/master_detail/bloc.dart';
 
 void main() => runApp(MyApp());
 
