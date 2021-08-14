@@ -8,15 +8,23 @@ class NotificationService {
 
   void init() {
     _localNotifications = FlutterLocalNotificationsPlugin();
+
+    if (Platform.isWindows || Platform.isLinux || Platform.isFuchsia) {
+      // code notification devie
+    }
+
     //fix to ios
-    if (Platform.isIOS) {
+    if (Platform.isIOS || Platform.isMacOS) {
       _requestIOSPermission();
     }
     const initSettingAndroid = AndroidInitializationSettings('severingthing');
     const initSettingIOS = IOSInitializationSettings();
+    const initializationSettingsMacOS = MacOSInitializationSettings();
 
     const initSettings = InitializationSettings(
-        android: initSettingAndroid, iOS: initSettingIOS);
+        android: initSettingAndroid,
+        iOS: initSettingIOS,
+        macOS: initializationSettingsMacOS);
 
     _localNotifications.initialize(initSettings);
   }
@@ -37,8 +45,9 @@ class NotificationService {
         styleInformation: DefaultStyleInformation(true, true));
 
     const iosChannel = IOSNotificationDetails(presentSound: true);
-    const platformChannelSpecifics =
-        NotificationDetails(android: androidChannel, iOS: iosChannel);
+    const macOSChannel = MacOSNotificationDetails(presentSound: true);
+    const platformChannelSpecifics = NotificationDetails(
+        android: androidChannel, iOS: iosChannel, macOS: macOSChannel);
     await _localNotifications.show(0, title, body, platformChannelSpecifics);
   }
 }
