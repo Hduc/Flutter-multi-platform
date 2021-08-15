@@ -4,6 +4,7 @@ import 'package:severingthing/common/notification_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:severingthing/common/routes.dart';
 import 'package:severingthing/ui/pages/home.page.dart';
+import 'package:severingthing/ui/pages/home_mobile.page.dart';
 import 'package:severingthing/ui/pages/login.page.dart';
 import 'package:severingthing/ui/pages/login_biometric.page.dart';
 import 'package:severingthing/ui/pages/login_passcode.page.dart';
@@ -49,7 +50,7 @@ class _MyAppState extends State<MyApp> {
             locale: snapshot.data,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            initialRoute: Routes.signInOptions,
+            initialRoute: Routes.home,
             localeResolutionCallback: (locale, supportedLocales) {
               print('Locale: $locale . Locales: $supportedLocales');
               if (locale == null) return supportedLocales.first;
@@ -67,9 +68,19 @@ class _MyAppState extends State<MyApp> {
               Routes.signInUserPass: (_) => const LoginPage(),
               Routes.signInPasscode: (_) => const LoginPassCodePage(),
               Routes.signInBiometric: (_) => const LoginBiometric(),
-              Routes.home: (_) => const HomePage(),
+              Routes.home: (_) => pageByDevice(context, Routes.home),
             },
           );
         });
+  }
+
+  Widget pageByDevice(BuildContext context, String router) {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 768) {
+        return HomePage(screen: router);
+      } else {
+        return HomeMobilePage(screen: router);
+      }
+    });
   }
 }

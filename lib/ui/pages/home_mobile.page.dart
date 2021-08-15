@@ -3,15 +3,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:severingthing/bloc/language_bloc.dart';
 import 'package:severingthing/bloc/language_bloc.dart';
 
-class HomePage extends StatefulWidget {
+class HomeMobilePage extends StatefulWidget {
   final String screen;
-  const HomePage({Key? key, required this.screen}) : super(key: key);
+  const HomeMobilePage({required this.screen, Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeMobilePageState createState() => _HomeMobilePageState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomeMobilePageState extends State<HomeMobilePage>
+    with WidgetsBindingObserver {
   late AppLifecycleState? _notification;
 
   @override
