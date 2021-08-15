@@ -24,8 +24,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    //check init notification vs mobile No init in web
-    //NotificationService.getInstance().init();
+    // NotificationService.getInstance().init();
     languageBloc.getLanguage();
   }
 
@@ -74,13 +73,3 @@ class _MyAppState extends State<MyApp> {
         });
   }
 }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(
-//       create: (context) => MasterDetailBloc(),
-//       child: MaterialApp(theme: AppTheme.buildShrineTheme(), home: Layout()),
-//     );
-//   }
-// }

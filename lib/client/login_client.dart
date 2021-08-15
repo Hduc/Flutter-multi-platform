@@ -4,7 +4,7 @@ class LoginClient {
   Future<String?> authenticate(String userName, String password) async {
     await Future<void>.delayed(const Duration(seconds: 3));
 
-    return userName == 'hduc@gmail.com' && password == '123456' ? 'Hduc' : null;
+    return userName == 'hduc@gmail.com' && password == '123456' ? 'hduc' : null;
   }
 
   Future<String?> verifyPhone(String phoneNumber) async {
