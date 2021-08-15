@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:severingthing/common/notification_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:severingthing/bloc/language_bloc.dart';
+//import 'package:severingthing/common/notification_service.dart';
+
 import 'package:severingthing/common/routes.dart';
 import 'package:severingthing/ui/pages/home.page.dart';
 import 'package:severingthing/ui/pages/home_mobile.page.dart';
@@ -9,7 +12,6 @@ import 'package:severingthing/ui/pages/login.page.dart';
 import 'package:severingthing/ui/pages/login_biometric.page.dart';
 import 'package:severingthing/ui/pages/login_passcode.page.dart';
 import 'package:severingthing/ui/pages/sign_in_options.page.dart';
-import 'bloc/language_bloc.dart';
 
 void main() => runApp(const MyApp());
 
@@ -69,6 +71,10 @@ class _MyAppState extends State<MyApp> {
               Routes.signInPasscode: (_) => const LoginPassCodePage(),
               Routes.signInBiometric: (_) => const LoginBiometric(),
               Routes.home: (_) => pageByDevice(context, Routes.home),
+              Routes.chat: (_) => pageByDevice(context, Routes.chat),
+              Routes.control: (_) => pageByDevice(context, Routes.control),
+              Routes.setting: (_) => pageByDevice(context, Routes.setting),
+              Routes.report: (_) => pageByDevice(context, Routes.report),
             },
           );
         });

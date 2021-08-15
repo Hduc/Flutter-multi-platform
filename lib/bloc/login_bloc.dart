@@ -1,8 +1,9 @@
 import 'package:rxdart/rxdart.dart';
+
 import 'package:severingthing/bloc/base_bloc.dart';
 import 'package:severingthing/common/model/text_field_validator.dart';
-import 'package:severingthing/reponsitory/login_repository.dart';
 import 'package:severingthing/common/validator.dart';
+import 'package:severingthing/reponsitory/login_repository.dart';
 
 class LoginBloc extends BaseBloc with Validator {
   final _repository = LoginRepository();

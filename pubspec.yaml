@@ -22,8 +22,8 @@ dependencies:
   pinput: ^1.2.0
   rxdart: ^0.27.1
   shared_preferences: ^2.0.6
-  equatable: ^1.1.1
-  http: ^0.13.3
+  # equatable: ^1.1.1
+  # http: ^0.13.3
 
 dev_dependencies:
   flutter_test:

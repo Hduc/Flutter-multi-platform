@@ -1,18 +1,19 @@
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:rxdart/rxdart.dart';
+
 import 'package:severingthing/bloc/base_bloc.dart';
-import 'package:rxdart/subjects.dart';
 
 class BiometricBloc extends BaseBloc {
+  Stream<bool> get hasBiometricStream => _hasBiometricSubject.stream;
+
+  Stream<List<BiometricType>> get biometricListStream => _biometricList.stream;
+
   final _authentication = LocalAuthentication();
 
   final _hasBiometricSubject = BehaviorSubject<bool>();
 
   final _biometricList = BehaviorSubject<List<BiometricType>>();
-
-  Stream<bool> get hasBiometricStream => _hasBiometricSubject.stream;
-
-  Stream<List<BiometricType>> get biometricListStream => _biometricList.stream;
 
   Future<void> checkBiometric() async {
     try {

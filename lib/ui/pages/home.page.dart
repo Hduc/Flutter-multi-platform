@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:severingthing/bloc/language_bloc.dart';
-import 'package:severingthing/bloc/language_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  final String screen;
   const HomePage({Key? key, required this.screen}) : super(key: key);
+  final String screen;
 
   @override
   _HomePageState createState() => _HomePageState();
