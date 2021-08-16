@@ -4,7 +4,7 @@ import 'package:severingthing/bloc/facebook_bloc.dart';
 import 'package:severingthing/common/message_service.dart';
 import 'package:severingthing/common/routes.dart';
 import 'package:severingthing/ui/common/color.dart';
-import 'package:severingthing/ui/widgets/custom_button.dart';
+import 'package:severingthing/ui/pages/widgets/custom_button.dart';
 
 class SignInOptionsPage extends StatefulWidget {
   const SignInOptionsPage({Key? key}) : super(key: key);

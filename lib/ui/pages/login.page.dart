@@ -8,8 +8,8 @@ import 'package:severingthing/common/model/text_field_validator.dart';
 import 'package:severingthing/common/routes.dart';
 import 'package:severingthing/common/utils.dart';
 import 'package:severingthing/ui/common/color.dart';
-import 'package:severingthing/ui/widgets/custom_button.dart';
-import 'package:severingthing/ui/widgets/custom_text_field.dart';
+import 'package:severingthing/ui/pages/widgets/custom_button.dart';
+import 'package:severingthing/ui/pages/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

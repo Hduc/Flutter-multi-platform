@@ -6,8 +6,8 @@ import 'package:severingthing/bloc/language_bloc.dart';
 //import 'package:severingthing/common/notification_service.dart';
 
 import 'package:severingthing/common/routes.dart';
+import 'package:severingthing/ui/common/color.dart';
 import 'package:severingthing/ui/pages/home.page.dart';
-import 'package:severingthing/ui/pages/home_mobile.page.dart';
 import 'package:severingthing/ui/pages/login.page.dart';
 import 'package:severingthing/ui/pages/login_biometric.page.dart';
 import 'package:severingthing/ui/pages/login_passcode.page.dart';
@@ -44,11 +44,9 @@ class _MyAppState extends State<MyApp> {
         builder: (_, snapshot) {
           return MaterialApp(
             theme: ThemeData(
-              primaryColor: Colors.teal,
-              textTheme: GoogleFonts.notoSansTextTheme(
-                Theme.of(context).textTheme,
-              ),
-            ),
+                scaffoldBackgroundColor: CustomColors.purpleDark,
+                primarySwatch: Colors.blue,
+                canvasColor: CustomColors.purpleLight),
             locale: snapshot.data,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
@@ -66,27 +64,17 @@ class _MyAppState extends State<MyApp> {
             },
             onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
             routes: {
+              Routes.home: (_) => const HomePage(screen: Routes.home),
+              Routes.chat: (_) => const HomePage(screen: Routes.chat),
+              Routes.control: (_) => const HomePage(screen: Routes.control),
+              Routes.setting: (_) => const HomePage(screen: Routes.setting),
+              Routes.report: (_) => const HomePage(screen: Routes.report),
               Routes.signInOptions: (_) => const SignInOptionsPage(),
               Routes.signInUserPass: (_) => const LoginPage(),
               Routes.signInPasscode: (_) => const LoginPassCodePage(),
               Routes.signInBiometric: (_) => const LoginBiometric(),
-              Routes.home: (_) => pageByDevice(context, Routes.home),
-              Routes.chat: (_) => pageByDevice(context, Routes.chat),
-              Routes.control: (_) => pageByDevice(context, Routes.control),
-              Routes.setting: (_) => pageByDevice(context, Routes.setting),
-              Routes.report: (_) => pageByDevice(context, Routes.report),
             },
           );
         });
-  }
-
-  Widget pageByDevice(BuildContext context, String router) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 768) {
-        return HomePage(screen: router);
-      } else {
-        return HomeMobilePage(screen: router);
-      }
-    });
   }
 }

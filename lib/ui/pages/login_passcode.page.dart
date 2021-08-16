@@ -12,9 +12,9 @@ import 'package:severingthing/common/routes.dart';
 import 'package:severingthing/common/utils.dart';
 
 import 'package:severingthing/ui/common/color.dart';
-import 'package:severingthing/ui/widgets/custom_button.dart';
-import 'package:severingthing/ui/widgets/custom_text_field.dart';
-import 'package:severingthing/ui/widgets/loading.dart';
+import 'package:severingthing/ui/pages/widgets/custom_button.dart';
+import 'package:severingthing/ui/pages/widgets/custom_text_field.dart';
+import 'package:severingthing/ui/pages/widgets/loading.dart';
 
 class LoginPassCodePage extends StatefulWidget {
   const LoginPassCodePage({Key? key}) : super(key: key);
