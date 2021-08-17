@@ -12,6 +12,7 @@ import 'package:severingthing/ui/pages/login.page.dart';
 import 'package:severingthing/ui/pages/login_biometric.page.dart';
 import 'package:severingthing/ui/pages/login_passcode.page.dart';
 import 'package:severingthing/ui/pages/sign_in_options.page.dart';
+import 'package:severingthing/ui/widget_tree.dart';
 
 void main() => runApp(const MyApp());
 
@@ -64,7 +65,8 @@ class _MyAppState extends State<MyApp> {
             },
             onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
             routes: {
-              Routes.home: (_) => const HomePage(screen: Routes.home),
+              Routes.home: (_) =>
+                  WidgetTree(), //const HomePage(screen: Routes.home),
               Routes.chat: (_) => const HomePage(screen: Routes.chat),
               Routes.control: (_) => const HomePage(screen: Routes.control),
               Routes.setting: (_) => const HomePage(screen: Routes.setting),

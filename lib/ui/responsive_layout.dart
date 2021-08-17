@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   const ResponsiveLayout({
+    Key? key,
     required this.tiny,
     required this.phone,
     required this.tablet,
     required this.largeTablet,
     required this.computer,
-  });
+  }) : super(key: key);
 
   final Widget tiny;
   final Widget phone;
