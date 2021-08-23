@@ -238,12 +238,6 @@ class PieChart2State extends State {
 }
 
 class Indicator extends StatelessWidget {
-  final Color color;
-  final String text;
-  final bool isSquare;
-  final double size;
-  final Color textColor;
-
   const Indicator({
     Key? key,
     required this.color,
@@ -252,6 +246,12 @@ class Indicator extends StatelessWidget {
     this.size = 16,
     this.textColor = Colors.white70,
   }) : super(key: key);
+
+  final Color color;
+  final String text;
+  final bool isSquare;
+  final double size;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -317,7 +317,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      right: 18.0, left: 12.0, top: 24, bottom: 12),
+                      right: 18, left: 12, top: 24, bottom: 12),
                   child: LineChart(
                     showAvg ? avgData() : mainData(),
                   ),
@@ -616,7 +616,7 @@ class LineChartSample1State extends State<LineChartSample1> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 16.0, left: 6.0),
+                      padding: const EdgeInsets.only(right: 16, left: 6),
                       child: LineChart(
                         isShowingMainData ? sampleData1() : sampleData2(),
                         swapAnimationDuration:

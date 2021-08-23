@@ -61,7 +61,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         ),
         computer: Row(
           children: [
-            Expanded(child: DrawerPage()),
+            Expanded(child: LeftNavigation()),
             Expanded(child: PanelLeftPage()),
             Expanded(
               child: PanelCenterPage(),
@@ -72,7 +72,7 @@ class _WidgetTreeState extends State<WidgetTree> {
           ],
         ),
       ),
-      drawer: DrawerPage(),
+      drawer: LeftNavigation(),
       bottomNavigationBar: ResponsiveLayout.isPhone(context)
           ? CurvedNavigationBar(
               index: currentIndex,

@@ -30,13 +30,13 @@ List<ButtonsInfo> _buttonNames = [
   ButtonsInfo(title: "Users", icon: Icons.supervised_user_circle_rounded),
 ];
 
-class DrawerPage extends StatefulWidget {
-  const DrawerPage({Key? key}) : super(key: key);
+class LeftNavigation extends StatefulWidget {
+  const LeftNavigation({Key? key}) : super(key: key);
   @override
-  _DrawerPageState createState() => _DrawerPageState();
+  _LeftNavigationState createState() => _LeftNavigationState();
 }
 
-class _DrawerPageState extends State<DrawerPage> {
+class _LeftNavigationState extends State<LeftNavigation> {
   @override
   Widget build(BuildContext context) {
     return Drawer(

@@ -32,10 +32,13 @@ class LoginBloc extends BaseBloc with Validator {
   Future<bool> authenticate() async {
     loading.sink.add(true);
 
-    final token = await _repository.authenticate(
-        _emailSubject.value, _passwordSubject.value);
+    final token =
+        await _repository.sendData(_emailSubject.value, _passwordSubject.value);
+
     loading.sink.add(false);
-    return token != null && token == 'hduc';
+
+    //return token != null && token.username == 'hduc';
+    return true;
   }
 
   @override

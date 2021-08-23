@@ -36,8 +36,12 @@ class ResponsiveLayout extends StatelessWidget {
       MediaQuery.of(context).size.width >= phoneLimit &&
       MediaQuery.of(context).size.width < tabletLimit;
 
+  static bool isLargeTablet(BuildContext context) =>
+      MediaQuery.of(context).size.width >= tabletLimit &&
+      MediaQuery.of(context).size.width < largeTabletLimit;
+
   static bool isComputer(BuildContext context) =>
-      MediaQuery.of(context).size.width >= tabletLimit;
+      MediaQuery.of(context).size.width >= largeTabletLimit;
 
   @override
   Widget build(BuildContext context) {

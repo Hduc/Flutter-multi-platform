@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'package:severingthing/bloc/language_bloc.dart';
 //import 'package:severingthing/common/notification_service.dart';
 
@@ -66,7 +64,8 @@ class _MyAppState extends State<MyApp> {
             onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
             routes: {
               Routes.home: (_) =>
-                  WidgetTree(), //const HomePage(screen: Routes.home),
+                  const WidgetTree(), //const HomePage(screen: Routes.home),
+              Routes.index: (_) => const HomePage(screen: Routes.index),
               Routes.chat: (_) => const HomePage(screen: Routes.chat),
               Routes.control: (_) => const HomePage(screen: Routes.control),
               Routes.setting: (_) => const HomePage(screen: Routes.setting),

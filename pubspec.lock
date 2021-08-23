@@ -176,7 +176,7 @@ packages:
     source: hosted
     version: "2.1.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -442,3 +442,4 @@ packages:
 sdks:
   dart: ">=2.13.0 <3.0.0"
   flutter: ">=2.2.0"
+  http: ">=0.12.2 <0.13.0"
