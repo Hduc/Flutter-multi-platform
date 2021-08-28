@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:severingthing/ui/common/color.dart';
 import 'package:severingthing/ui/responsive_layout.dart';
 
-List<String> _buttonNames = ["Overview", "Revenue", "Sales", "Control"];
+List<String> _buttonNames = ["Điều kiển", "Biểu đồ", "Cài đặt"];
 int _currentSelectedButton = 0;
 
 class AppBarWidget extends StatefulWidget {

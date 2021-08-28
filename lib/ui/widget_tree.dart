@@ -18,8 +18,8 @@ class _WidgetTreeState extends State<WidgetTree> {
   int currentIndex = 1;
 
   List<Widget> _icons = [
-    Icon(Icons.home, size: 30),
-    Icon(Icons.chat, size: 30),
+    // Icon(Icons.home, size: 30),
+    // Icon(Icons.chat, size: 30),
     Icon(Icons.toggle_on, size: 30),
     Icon(Icons.show_chart, size: 30),
     Icon(Icons.settings, size: 30),

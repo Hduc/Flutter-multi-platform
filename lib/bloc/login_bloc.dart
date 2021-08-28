@@ -10,12 +10,18 @@ class LoginBloc extends BaseBloc with Validator {
 
   final _emailSubject = BehaviorSubject<String>();
   final _passwordSubject = BehaviorSubject<String>();
+  final _rePasswordSubject = BehaviorSubject<String>();
+  final _surnameSubject = BehaviorSubject<String>();
+  final _nameSubject = BehaviorSubject<String>();
 
   Stream<TextFieldValidator> get emailStream =>
       _emailSubject.stream.transform(checkEmail);
 
   Stream<TextFieldValidator> get passwordStream =>
       _passwordSubject.stream.transform(checkPass);
+
+  Stream<TextFieldValidator> get rePasswordStream =>
+      _rePasswordSubject.stream.transform(checkPass);
 
   Stream<bool> get isValidData => Rx.combineLatest2(emailStream, passwordStream,
           (TextFieldValidator e, TextFieldValidator p) {
@@ -28,6 +34,9 @@ class LoginBloc extends BaseBloc with Validator {
   String? get email => _emailSubject.valueOrNull;
 
   String? get password => _passwordSubject.valueOrNull;
+  String? get rePassword => _rePasswordSubject.valueOrNull;
+  String? get surname => _surnameSubject.valueOrNull;
+  String? get name => _nameSubject.valueOrNull;
 
   Future<bool> authenticate() async {
     loading.sink.add(true);
@@ -45,6 +54,9 @@ class LoginBloc extends BaseBloc with Validator {
   void dispose() {
     _emailSubject.close();
     _passwordSubject.close();
+    _rePasswordSubject.close();
+    _surnameSubject.close();
+    _nameSubject.close();
 
     loading.close();
   }

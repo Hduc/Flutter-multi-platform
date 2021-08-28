@@ -9,7 +9,6 @@ import 'package:severingthing/ui/pages/home.page.dart';
 import 'package:severingthing/ui/pages/login.page.dart';
 import 'package:severingthing/ui/pages/login_biometric.page.dart';
 import 'package:severingthing/ui/pages/login_passcode.page.dart';
-import 'package:severingthing/ui/pages/sign_in_options.page.dart';
 import 'package:severingthing/ui/widget_tree.dart';
 
 void main() => runApp(const MyApp());
@@ -70,8 +69,7 @@ class _MyAppState extends State<MyApp> {
               Routes.control: (_) => const HomePage(screen: Routes.control),
               Routes.setting: (_) => const HomePage(screen: Routes.setting),
               Routes.report: (_) => const HomePage(screen: Routes.report),
-              Routes.signInOptions: (_) => const SignInOptionsPage(),
-              Routes.signInUserPass: (_) => const LoginPage(),
+              Routes.login: (_) => const LoginPage(),
               Routes.signInPasscode: (_) => const LoginPassCodePage(),
               Routes.signInBiometric: (_) => const LoginBiometric(),
             },

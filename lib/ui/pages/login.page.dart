@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:severingthing/bloc/facebook_bloc.dart';
 
 import 'package:severingthing/bloc/login_bloc.dart';
 import 'package:severingthing/common/message_service.dart';
@@ -26,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: CustomColors.white,
@@ -41,11 +43,50 @@ class _LoginPageState extends State<LoginPage> {
                 TextFieldEmail(bloc: loginBloc),
                 const SizedBox(height: 20),
                 TextFieldPassword(bloc: loginBloc),
+                TextFieldPassword(bloc: loginBloc),
+                TextFieldPassword(bloc: loginBloc),
                 const SizedBox(height: 20),
                 SubmitButton(
                   bloc: loginBloc,
                   onSendMessage: _showSnackBar,
                   onGoToScreen: _goToHomeScreen,
+                ),
+                const SizedBox(height: 20),
+                CustomButton(
+                  text: localizations.signInText(localizations.signInPasscode),
+                  onPress: () => _pushScreen(Routes.signInPasscode),
+                  backgroundColor: CustomColors.lightBlue,
+                  foregroundColor: CustomColors.white,
+                  icon:
+                      const Icon(Icons.sms_outlined, color: CustomColors.white),
+                ),
+                const SizedBox(height: 20),
+                CustomButton(
+                  text:
+                      localizations.signInText(localizations.signInFingerPrint),
+                  onPress: () => _pushScreen(Routes.signInBiometric),
+                  backgroundColor: CustomColors.darkPurple,
+                  foregroundColor: CustomColors.white,
+                  icon: const Icon(
+                    Icons.fingerprint_outlined,
+                    color: CustomColors.white,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                CustomButton(
+                  text: localizations.signInText(localizations.signInFacebook),
+                  onPress: () async {
+                    final result = await facebookBloc.authenticate();
+                    if (result != null) {
+                      _showSnackFacebookBar(result);
+                    } else {
+                      await _goToHomeScreen();
+                    }
+                  },
+                  backgroundColor: CustomColors.kingBlue,
+                  foregroundColor: CustomColors.white,
+                  icon: const Icon(Icons.face_outlined,
+                      color: CustomColors.white),
                 ),
               ],
             ),
@@ -60,8 +101,30 @@ class _LoginPageState extends State<LoginPage> {
         () => MessageService.getInstance().showMessage(context, message),
       );
 
+  void _showSnackFacebookBar(FacebookState state) {
+    final localizations = AppLocalizations.of(context)!;
+    final String? message;
+
+    switch (state) {
+      case FacebookState.inProgress:
+        message = localizations.signInFacebookInProgress;
+        break;
+      case FacebookState.cancelled:
+        message = localizations.signInFacebookCancelled;
+        break;
+      case FacebookState.error:
+        message = localizations.signInFacebookError;
+        break;
+    }
+
+    MessageService.getInstance().showMessage(context, message);
+  }
+
   Future _goToHomeScreen() => Navigator.of(context)
       .pushNamedAndRemoveUntil(Routes.home, (Route<dynamic> route) => false);
+
+  Future<void> _pushScreen(String routeName) =>
+      Navigator.of(context).pushNamed(routeName);
 }
 
 class TextFieldEmail extends HookWidget {
@@ -125,6 +188,72 @@ class TextFieldPassword extends HookWidget {
                   context, (snapshot.error as TextFieldValidator?)!.validator)
               : null,
           hasPassword: true,
+        );
+      },
+    );
+  }
+}
+
+class TextFieldRePassword extends HookWidget {
+  const TextFieldRePassword({Key? key, required this.bloc}) : super(key: key);
+
+  final LoginBloc bloc;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = useTextEditingController();
+
+    return StreamBuilder(
+      builder: (_, snapshot) {
+        final localizations = AppLocalizations.of(context)!;
+
+        controller.value =
+            controller.value.copyWith(text: bloc.rePassword ?? '');
+
+        return CustomTextField(
+          textController: controller,
+          hint: localizations.emailPlaceholder,
+          isRequired: true,
+          requiredMessage: localizations.emailRequiredMessage,
+          onChange: bloc.changeEmail,
+          inputType: TextInputType.emailAddress,
+          action: TextInputAction.next,
+          errorText: snapshot.hasError
+              ? Utils.getTextValidator(
+                  context, (snapshot.error as TextFieldValidator?)!.validator)
+              : null,
+        );
+      },
+    );
+  }
+}
+
+class TextFieldSurname extends HookWidget {
+  const TextFieldSurname({Key? key, required this.bloc}) : super(key: key);
+
+  final LoginBloc bloc;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = useTextEditingController();
+
+    return StreamBuilder(
+      builder: (_, snapshot) {
+        final localizations = AppLocalizations.of(context)!;
+        controller.value = controller.value.copyWith(text: bloc.surname ?? '');
+
+        return CustomTextField(
+          textController: controller,
+          hint: localizations.emailPlaceholder,
+          isRequired: true,
+          requiredMessage: localizations.emailRequiredMessage,
+          onChange: bloc.changeEmail,
+          inputType: TextInputType.emailAddress,
+          action: TextInputAction.next,
+          errorText: snapshot.hasError
+              ? Utils.getTextValidator(
+                  context, (snapshot.error as TextFieldValidator?)!.validator)
+              : null,
         );
       },
     );
