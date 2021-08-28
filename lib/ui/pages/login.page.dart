@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: CustomColors.white,
+      backgroundColor: CustomColors.purpleLight,
       body: Stack(
         children: <Widget>[
           Container(
@@ -41,17 +41,14 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextFieldEmail(bloc: loginBloc),
-                const SizedBox(height: 20),
                 TextFieldPassword(bloc: loginBloc),
-                TextFieldPassword(bloc: loginBloc),
-                TextFieldPassword(bloc: loginBloc),
-                const SizedBox(height: 20),
+                // TextFieldPassword(bloc: loginBloc),
+                // TextFieldPassword(bloc: loginBloc),
                 SubmitButton(
                   bloc: loginBloc,
                   onSendMessage: _showSnackBar,
                   onGoToScreen: _goToHomeScreen,
                 ),
-                const SizedBox(height: 20),
                 CustomButton(
                   text: localizations.signInText(localizations.signInPasscode),
                   onPress: () => _pushScreen(Routes.signInPasscode),
@@ -60,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
                   icon:
                       const Icon(Icons.sms_outlined, color: CustomColors.white),
                 ),
-                const SizedBox(height: 20),
                 CustomButton(
                   text:
                       localizations.signInText(localizations.signInFingerPrint),
@@ -72,7 +68,6 @@ class _LoginPageState extends State<LoginPage> {
                     color: CustomColors.white,
                   ),
                 ),
-                const SizedBox(height: 20),
                 CustomButton(
                   text: localizations.signInText(localizations.signInFacebook),
                   onPress: () async {
@@ -145,7 +140,8 @@ class TextFieldEmail extends HookWidget {
 
         return CustomTextField(
           textController: controller,
-          hint: localizations.emailPlaceholder,
+          icon: Icon(Icons.email),
+          label: localizations.emailText,
           isRequired: true,
           requiredMessage: localizations.emailRequiredMessage,
           onChange: bloc.changeEmail,
@@ -179,7 +175,7 @@ class TextFieldPassword extends HookWidget {
 
         return CustomTextField(
           textController: controller,
-          hint: localizations.passwordPlaceholder,
+          //hint: localizations.passwordPlaceholder,
           isRequired: true,
           requiredMessage: localizations.passwordRequiredMessage,
           onChange: bloc.changePassword,
@@ -194,71 +190,71 @@ class TextFieldPassword extends HookWidget {
   }
 }
 
-class TextFieldRePassword extends HookWidget {
-  const TextFieldRePassword({Key? key, required this.bloc}) : super(key: key);
+// class TextFieldRePassword extends HookWidget {
+//   const TextFieldRePassword({Key? key, required this.bloc}) : super(key: key);
 
-  final LoginBloc bloc;
+//   final LoginBloc bloc;
 
-  @override
-  Widget build(BuildContext context) {
-    final controller = useTextEditingController();
+//   @override
+//   Widget build(BuildContext context) {
+//     final controller = useTextEditingController();
 
-    return StreamBuilder(
-      builder: (_, snapshot) {
-        final localizations = AppLocalizations.of(context)!;
+//     return StreamBuilder(
+//       builder: (_, snapshot) {
+//         final localizations = AppLocalizations.of(context)!;
 
-        controller.value =
-            controller.value.copyWith(text: bloc.rePassword ?? '');
+//         controller.value =
+//             controller.value.copyWith(text: bloc.rePassword ?? '');
 
-        return CustomTextField(
-          textController: controller,
-          hint: localizations.emailPlaceholder,
-          isRequired: true,
-          requiredMessage: localizations.emailRequiredMessage,
-          onChange: bloc.changeEmail,
-          inputType: TextInputType.emailAddress,
-          action: TextInputAction.next,
-          errorText: snapshot.hasError
-              ? Utils.getTextValidator(
-                  context, (snapshot.error as TextFieldValidator?)!.validator)
-              : null,
-        );
-      },
-    );
-  }
-}
+//         return CustomTextField(
+//           textController: controller,
+//           hint: localizations.emailPlaceholder,
+//           isRequired: true,
+//           requiredMessage: localizations.emailRequiredMessage,
+//           onChange: bloc.changeEmail,
+//           inputType: TextInputType.emailAddress,
+//           action: TextInputAction.next,
+//           errorText: snapshot.hasError
+//               ? Utils.getTextValidator(
+//                   context, (snapshot.error as TextFieldValidator?)!.validator)
+//               : null,
+//         );
+//       },
+//     );
+//   }
+// }
 
-class TextFieldSurname extends HookWidget {
-  const TextFieldSurname({Key? key, required this.bloc}) : super(key: key);
+// class TextFieldSurname extends HookWidget {
+//   const TextFieldSurname({Key? key, required this.bloc}) : super(key: key);
 
-  final LoginBloc bloc;
+//   final LoginBloc bloc;
 
-  @override
-  Widget build(BuildContext context) {
-    final controller = useTextEditingController();
+//   @override
+//   Widget build(BuildContext context) {
+//     final controller = useTextEditingController();
 
-    return StreamBuilder(
-      builder: (_, snapshot) {
-        final localizations = AppLocalizations.of(context)!;
-        controller.value = controller.value.copyWith(text: bloc.surname ?? '');
+//     return StreamBuilder(
+//       builder: (_, snapshot) {
+//         final localizations = AppLocalizations.of(context)!;
+//         controller.value = controller.value.copyWith(text: bloc.surname ?? '');
 
-        return CustomTextField(
-          textController: controller,
-          hint: localizations.emailPlaceholder,
-          isRequired: true,
-          requiredMessage: localizations.emailRequiredMessage,
-          onChange: bloc.changeEmail,
-          inputType: TextInputType.emailAddress,
-          action: TextInputAction.next,
-          errorText: snapshot.hasError
-              ? Utils.getTextValidator(
-                  context, (snapshot.error as TextFieldValidator?)!.validator)
-              : null,
-        );
-      },
-    );
-  }
-}
+//         return CustomTextField(
+//           textController: controller,
+//           hint: localizations.emailPlaceholder,
+//           isRequired: true,
+//           requiredMessage: localizations.emailRequiredMessage,
+//           onChange: bloc.changeEmail,
+//           inputType: TextInputType.emailAddress,
+//           action: TextInputAction.next,
+//           errorText: snapshot.hasError
+//               ? Utils.getTextValidator(
+//                   context, (snapshot.error as TextFieldValidator?)!.validator)
+//               : null,
+//         );
+//       },
+//     );
+//   }
+// }
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({

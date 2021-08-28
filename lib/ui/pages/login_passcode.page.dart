@@ -148,7 +148,7 @@ class FormPhone extends HookWidget {
 
               return CustomTextField(
                 textController: controller,
-                hint: localizations.phoneNumberPlaceholder,
+                //hint: localizations.phoneNumberPlaceholder,
                 isRequired: true,
                 requiredMessage: localizations.phoneNumberRequired,
                 onChange: bloc.changePhone,

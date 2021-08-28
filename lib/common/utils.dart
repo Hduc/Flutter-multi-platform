@@ -10,9 +10,9 @@ class Utils {
       case TextValidator.empty:
         return localizations.emptyValidation;
       case TextValidator.email:
-        return localizations.emailValidation;
+        return localizations.emailRequiredMessage;
       case TextValidator.password:
-        return localizations.passwordValidation;
+        return localizations.passwordRequiredMessage;
       case TextValidator.numeric:
         return localizations.numberValidation;
       default:

@@ -48,7 +48,7 @@ class _LeftNavigationState extends State<LeftNavigation> {
             children: [
               ListTile(
                 title: Text(
-                  "Admin Menu",
+                  "Smart everything",
                   style: TextStyle(
                     color: Colors.white,
                   ),

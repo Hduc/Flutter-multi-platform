@@ -50,7 +50,6 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: AppLocalizations.supportedLocales,
             initialRoute: Routes.home,
             localeResolutionCallback: (locale, supportedLocales) {
-              print('Locale: $locale . Locales: $supportedLocales');
               if (locale == null) return supportedLocales.first;
 
               for (final currentLocale in supportedLocales) {
@@ -62,8 +61,7 @@ class _MyAppState extends State<MyApp> {
             },
             onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
             routes: {
-              Routes.home: (_) =>
-                  const WidgetTree(), //const HomePage(screen: Routes.home),
+              Routes.home: (_) => const WidgetTree(),
               Routes.index: (_) => const HomePage(screen: Routes.index),
               Routes.chat: (_) => const HomePage(screen: Routes.chat),
               Routes.control: (_) => const HomePage(screen: Routes.control),

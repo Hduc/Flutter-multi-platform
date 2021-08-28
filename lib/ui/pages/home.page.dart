@@ -77,13 +77,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   String _getText(String lang) {
     final localizations = AppLocalizations.of(context)!;
-
     switch (lang) {
-      case 'es':
-        return localizations.spanishLanguage;
       case 'en':
-      default:
         return localizations.englishLanguage;
+      case 'vi':
+      default:
+        return localizations.vietNamLanguage;
     }
   }
 }
