@@ -33,7 +33,7 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: onPress,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             if (icon != null && direction == IconDirection.left)
               Expanded(

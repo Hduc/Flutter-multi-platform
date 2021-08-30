@@ -61,15 +61,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
             textInputAction: widget.action,
             obscureText: _isVisiblePassword,
             decoration: InputDecoration(
-              icon: widget.icon ?? null,
+              icon: widget.icon,
               labelText: widget.label,
               border: const OutlineInputBorder(),
               fillColor: Colors.white,
-              errorText: widget.errorText ?? null,
+              errorText: widget.errorText,
               suffixIcon: widget.hasPassword
                   ? IconButton(
                       padding: EdgeInsets.zero,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.remove_red_eye,
                         size: 24,
                       ),
@@ -79,9 +79,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       ? const Icon(Icons.error)
                       : const Icon(Icons.check_circle),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(6, 3, 10, 7),
           ),
         ],
       );

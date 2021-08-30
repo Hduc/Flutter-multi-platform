@@ -8,4 +8,6 @@ class Routes {
   static const setting = '/setting';
   static const chat = '/chat';
   static const control = '/control';
+
+  static const test = '/test';
 }

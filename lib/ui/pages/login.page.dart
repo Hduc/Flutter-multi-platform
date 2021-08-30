@@ -28,67 +28,79 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: CustomColors.purpleLight,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextFieldEmail(bloc: loginBloc),
-                TextFieldPassword(bloc: loginBloc),
-                // TextFieldPassword(bloc: loginBloc),
-                // TextFieldPassword(bloc: loginBloc),
-                SubmitButton(
-                  bloc: loginBloc,
-                  onSendMessage: _showSnackBar,
-                  onGoToScreen: _goToHomeScreen,
-                ),
-                CustomButton(
-                  text: localizations.signInText(localizations.signInPasscode),
-                  onPress: () => _pushScreen(Routes.signInPasscode),
-                  backgroundColor: CustomColors.lightBlue,
-                  foregroundColor: CustomColors.white,
-                  icon:
-                      const Icon(Icons.sms_outlined, color: CustomColors.white),
-                ),
-                CustomButton(
-                  text:
-                      localizations.signInText(localizations.signInFingerPrint),
-                  onPress: () => _pushScreen(Routes.signInBiometric),
-                  backgroundColor: CustomColors.darkPurple,
-                  foregroundColor: CustomColors.white,
-                  icon: const Icon(
-                    Icons.fingerprint_outlined,
-                    color: CustomColors.white,
-                  ),
-                ),
-                CustomButton(
-                  text: localizations.signInText(localizations.signInFacebook),
-                  onPress: () async {
-                    final result = await facebookBloc.authenticate();
-                    if (result != null) {
-                      _showSnackFacebookBar(result);
-                    } else {
-                      await _goToHomeScreen();
-                    }
-                  },
-                  backgroundColor: CustomColors.kingBlue,
-                  foregroundColor: CustomColors.white,
-                  icon: const Icon(Icons.face_outlined,
-                      color: CustomColors.white),
-                ),
-              ],
+    return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+      return AnimatedContainer(
+          duration: Duration(milliseconds: 500),
+          color: CustomColors.purpleLight,
+          padding: constraints.maxWidth < 500
+              ? EdgeInsets.zero
+              : const EdgeInsets.all(30.0),
+          child: Center(
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 30.0, horizontal: 25.0),
+              constraints: const BoxConstraints(
+                maxWidth: 500,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(localizations.signInText(localizations.homeText)),
+                    TextFieldEmail(bloc: loginBloc),
+                    TextFieldPassword(bloc: loginBloc),
+                    if (true) ...[
+                      TextFieldPassword(bloc: loginBloc),
+                      TextFieldPassword(bloc: loginBloc),
+                    ],
+                    SubmitButton(
+                      bloc: loginBloc,
+                      onSendMessage: _showSnackBar,
+                      onGoToScreen: _goToHomeScreen,
+                    ),
+                    CustomButton(
+                      text: localizations
+                          .signInText(localizations.signInPasscode),
+                      onPress: () => _pushScreen(Routes.signInPasscode),
+                      backgroundColor: CustomColors.lightBlue,
+                      foregroundColor: CustomColors.white,
+                      icon: const Icon(Icons.sms_outlined,
+                          color: CustomColors.white),
+                    ),
+                    CustomButton(
+                      text: localizations
+                          .signInText(localizations.signInFingerPrint),
+                      onPress: () => _pushScreen(Routes.signInBiometric),
+                      backgroundColor: CustomColors.darkPurple,
+                      foregroundColor: CustomColors.white,
+                      icon: const Icon(
+                        Icons.fingerprint_outlined,
+                        color: CustomColors.white,
+                      ),
+                    ),
+                    CustomButton(
+                      text: localizations
+                          .signInText(localizations.signInFacebook),
+                      onPress: () async {
+                        final result = await facebookBloc.authenticate();
+                        if (result != null) {
+                          _showSnackFacebookBar(result);
+                        } else {
+                          await _goToHomeScreen();
+                        }
+                      },
+                      backgroundColor: CustomColors.kingBlue,
+                      foregroundColor: CustomColors.white,
+                      icon: const Icon(Icons.face_outlined,
+                          color: CustomColors.white),
+                    ),
+                  ]),
             ),
-          )
-        ],
-      ),
-    );
+          ));
+    }));
   }
 
   void _showSnackBar(String message) => Future.delayed(
@@ -140,7 +152,6 @@ class TextFieldEmail extends HookWidget {
 
         return CustomTextField(
           textController: controller,
-          icon: Icon(Icons.email),
           label: localizations.emailText,
           isRequired: true,
           requiredMessage: localizations.emailRequiredMessage,
@@ -175,7 +186,7 @@ class TextFieldPassword extends HookWidget {
 
         return CustomTextField(
           textController: controller,
-          //hint: localizations.passwordPlaceholder,
+          label: localizations.passwordValidation,
           isRequired: true,
           requiredMessage: localizations.passwordRequiredMessage,
           onChange: bloc.changePassword,
