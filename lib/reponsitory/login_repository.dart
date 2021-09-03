@@ -10,42 +10,47 @@ import 'package:severingthing/res/strings/strings.dart';
 class LoginRepository {
   final _client = LoginClient();
 
-  Future<List<LoginModel>> authenticates(
-      String userName, String password) async {
-    final url =
-        '${AppStrings.baseUrl}/users/test?userName=$userName&password=$password';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      return loginModelsFromJson(response.body);
-    } else {
-      print('Get Api Authenticate False');
-      throw Exception('Failed to load authenticate');
-    }
-  }
+  // Future<List<LoginModel>> authenticates(
+  //     String userName, String password) async {
+  //   final url =
+  //       '${AppStrings.baseUrl}/users/test?userName=$userName&password=$password';
+  //   final response = await http.get(Uri.parse(url));
+  //   if (response.statusCode == 200) {
+  //     return loginModelsFromJson(response.body);
+  //   } else {
+  //     print('Get Api Authenticate False');
+  //     throw Exception('Failed to load authenticate');
+  //   }
+  // }
 
-  Future<LoginModel> authenticate(String userName, String password) async {
-    final url =
-        '${AppStrings.baseUrl}/users/test1?userName=$userName&password=$password';
+  // Future<LoginModel> authenticate(String userName, String password) async {
+  //   final url =
+  //       '${AppStrings.baseUrl}/users/test1?userName=$userName&password=$password';
 
-    final response = await http.get(Uri.parse(url));
+  //   final response = await http.get(Uri.parse(url));
 
-    if (response.statusCode == 200) {
-      return loginModelFromJson(response.body);
-    } else {
-      print('Get Api Authenticate False');
-      throw Exception('Failed to load authenticate');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     return loginModelFromJson(response.body);
+  //   } else {
+  //     print('Get Api Authenticate False');
+  //     throw Exception('Failed to load authenticate');
+  //   }
+  // }
 
-  Future<LoginModel?> sendData(String userName, String password) async {
+  Future<LoginModel?> authenticate(
+      String userName, String password, String surname, String name) async {
     final url = '${AppStrings.baseUrl}/users/authenticate';
 
     final response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(
-            <String, String>{'username': userName, 'password': password}));
+        body: jsonEncode(<String, String>{
+          'username': userName,
+          'password': password,
+          'surName': surname,
+          'name': name
+        }));
     if (response.statusCode == 200) {
       return loginModelFromJson(response.body);
     }

@@ -3,6 +3,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:severingthing/bloc/base_bloc.dart';
 import 'package:severingthing/common/model/text_field_validator.dart';
 import 'package:severingthing/common/validator.dart';
+import 'package:severingthing/model/login_model.dart';
 import 'package:severingthing/reponsitory/login_repository.dart';
 
 class LoginBloc extends BaseBloc with Validator {
@@ -23,13 +24,33 @@ class LoginBloc extends BaseBloc with Validator {
   Stream<TextFieldValidator> get rePasswordStream =>
       _rePasswordSubject.stream.transform(checkPass);
 
-  Stream<bool> get isValidData => Rx.combineLatest2(emailStream, passwordStream,
+  Stream get surNameStream => _surnameSubject.stream;
+
+  Stream<TextFieldValidator> get nameStream =>
+      _nameSubject.stream.transform(checkEmpty);
+
+  Stream<bool> get isValidDataLogin =>
+      Rx.combineLatest2(emailStream, passwordStream,
           (TextFieldValidator e, TextFieldValidator p) {
         return e.text != null && p.text != null;
       });
 
+  Stream<bool> get isValidDataRegister => Rx.combineLatest4(
+          emailStream, passwordStream, rePasswordStream, nameStream,
+          (TextFieldValidator e, TextFieldValidator p, TextFieldValidator rp,
+              TextFieldValidator n) {
+        return e.text != null &&
+            p.text != null &&
+            rp.text != null &&
+            rp.text == p.text &&
+            n.text != null;
+      });
+
   Function(String) get changeEmail => _emailSubject.sink.add;
   Function(String) get changePassword => _passwordSubject.sink.add;
+  Function(String) get changeRePassword => _rePasswordSubject.sink.add;
+  Function(String) get changeSurname => _surnameSubject.sink.add;
+  Function(String) get changeName => _nameSubject.sink.add;
 
   String? get email => _emailSubject.valueOrNull;
 
@@ -38,16 +59,14 @@ class LoginBloc extends BaseBloc with Validator {
   String? get surname => _surnameSubject.valueOrNull;
   String? get name => _nameSubject.valueOrNull;
 
-  Future<bool> authenticate() async {
+  Future<LoginModel?> authenticate() async {
     loading.sink.add(true);
 
-    final token =
-        await _repository.sendData(_emailSubject.value, _passwordSubject.value);
+    final token = await _repository.authenticate(_emailSubject.value,
+        _passwordSubject.value, _surnameSubject.value, _nameSubject.value);
 
     loading.sink.add(false);
-
-    //return token != null && token.username == 'hduc';
-    return true;
+    return token;
   }
 
   @override

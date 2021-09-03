@@ -46,13 +46,25 @@
   "@emailRequiredMessage": {
     "description": "Message if email is required"
   },
-  "passwordPlaceholder": "Enter password",
-  "@passwordPlaceholder": {
-    "description": "Password text field placeholder"
+  "passwordText": "Password",
+  "@passwordText": {
+    "description": "Password text"
+  },
+  "rePasswordText": "Re-enter password",
+  "@rePasswordText": {
+    "description": "Re-enter password text"
+  },
+  "rePasswordNotMatch": "Password does not match",
+  "@rePasswordNotMatch": {
+    "description": "Password does not match text"
   },
   "passwordRequiredMessage": "Password is required",
   "@passwordRequiredMessage": {
     "description": "Message if password is required"
+  },
+  "passwordValidation": "The password is greater than 4 characters",
+  "@passwordValidation": {
+    "description": "Message in text field when password is invalid"
   },
   "signInButton": "Sign In",
   "@signInButton": {
@@ -126,10 +138,7 @@
   "@emptyValidation": {
     "description": "Message in text field when is empty"
   },
-  "passwordValidation": "The password is greater than 4 characters",
-  "@passwordValidation": {
-    "description": "Message in text field when password is invalid"
-  },
+ 
   "numberValidation": "Enter a valid number",
   "@numberValidation": {
     "description": "Message in text field when text is not numeric"
@@ -159,5 +168,17 @@
   "englishLanguage": "English",
   "@englishLanguage": {
     "description": "Change language first option text"
+  },
+  "surnameText":"Surname",
+  "@surnameText": {
+    "description": "Surname text field"
+  },
+  "nameText":"Name",
+  "@nameText": {
+    "description": "Name text field"
+  },
+  "nameTextValidation":"Name is required",
+  "@nameTextValidation":{
+    "description": "Name text is required"
   }
 }

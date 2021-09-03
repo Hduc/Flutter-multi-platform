@@ -12,7 +12,14 @@ mixin Validator {
       }
     },
   );
-
+  final checkEmpty = StreamTransformer<String, TextFieldValidator>.fromHandlers(
+      handleData: (input, sink) {
+    if (input.isNotEmpty && input.length >= 2) {
+      sink.add(TextFieldValidator(text: input));
+    } else {
+      sink.addError(TextFieldValidator(validator: TextValidator.text));
+    }
+  });
   final checkPass = StreamTransformer<String, TextFieldValidator>.fromHandlers(
     handleData: (password, sink) {
       if (password.isNotEmpty && password.length >= 4) {

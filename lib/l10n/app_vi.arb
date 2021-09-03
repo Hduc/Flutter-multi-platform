@@ -47,13 +47,21 @@
   "@emailRequiredMessage": {
     "description": "Message if email is required"
   },
-  "passwordPlaceholder": "Nhập mật khẩu",
-  "@passwordPlaceholder": {
+  "passwordText": "Nhập mật khẩu",
+  "@passwordText": {
     "description": "Password text field placeholder"
   },
   "passwordRequiredMessage": "Mật khẩu bắt buộc nhập",
   "@passwordRequiredMessage": {
     "description": "Message if password is required"
+  },
+  "rePasswordText": "Nhập lại mật khẩu",
+  "@rePasswordText": {
+    "description": "Re-enter password text"
+  },
+  "rePasswordNotMatch": "Mật khẩu không khớp",
+  "@rePasswordNotMatch": {
+    "description": "Password does not match text"
   },
   "signInButton": "Đăng nhập",
   "@signInButton": {
@@ -160,5 +168,17 @@
   "englishLanguage": "Tiếng Anh",
   "@englishLanguage": {
     "description": "Change language first option text"
+  },
+  "surnameText":"Họ",
+  "@surnameText":{
+    "description":"Surname text field"
+  },
+  "nameText":"Tên",
+  "@nameText":{
+    "description":"Name text field"
+  },
+  "nameTextValidation":"Tên vui lòng không để trống",
+  "@nameTextValidation":{
+    "description":"Name text is required"
   }
 }

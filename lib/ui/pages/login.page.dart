@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
+    var isRegister = false;
     return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
       return AnimatedContainer(
           duration: Duration(milliseconds: 500),
@@ -52,24 +53,51 @@ class _LoginPageState extends State<LoginPage> {
                     Text(localizations.signInText(localizations.homeText)),
                     TextFieldEmail(bloc: loginBloc),
                     TextFieldPassword(bloc: loginBloc),
-                    if (true) ...[
-                      TextFieldPassword(bloc: loginBloc),
-                      TextFieldPassword(bloc: loginBloc),
+                    if (isRegister) ...[
+                      TextFieldRePassword(bloc: loginBloc),
+                      TextFieldSurname(bloc: loginBloc),
+                      TextFieldName(bloc: loginBloc),
                     ],
-                    SubmitButton(
-                      bloc: loginBloc,
-                      onSendMessage: _showSnackBar,
-                      onGoToScreen: _goToHomeScreen,
-                    ),
-                    CustomButton(
-                      text: localizations
-                          .signInText(localizations.signInPasscode),
-                      onPress: () => _pushScreen(Routes.signInPasscode),
-                      backgroundColor: CustomColors.lightBlue,
-                      foregroundColor: CustomColors.white,
-                      icon: const Icon(Icons.sms_outlined,
-                          color: CustomColors.white),
-                    ),
+                    //submit  buttom
+                    StreamBuilder<bool>(
+                        stream: isRegister
+                            ? loginBloc.isValidDataRegister
+                            : loginBloc.isValidDataLogin,
+                        builder: (_, isValidSnapshot) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: CustomButton(
+                                    text: localizations.signInButton,
+                                    onPress: isValidSnapshot.hasData
+                                        ? () async {
+                                            final result =
+                                                await loginBloc.authenticate();
+                                            if (result == null) {
+                                              isRegister = true;
+                                            } else {
+                                              if (result.statusLogin == 0) {
+                                                _showSnackBar(localizations
+                                                    .userPasswordIncorrectMessage);
+                                              } else {
+                                                await _goToHomeScreen();
+                                              }
+                                            }
+                                          }
+                                        : null,
+                                    backgroundColor: CustomColors.lightGreen,
+                                    foregroundColor: CustomColors.white,
+                                    icon: const Icon(Icons.send,
+                                        color: CustomColors.white),
+                                    direction: IconDirection.right,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
                     CustomButton(
                       text: localizations
                           .signInText(localizations.signInFingerPrint),
@@ -80,6 +108,15 @@ class _LoginPageState extends State<LoginPage> {
                         Icons.fingerprint_outlined,
                         color: CustomColors.white,
                       ),
+                    ),
+                    CustomButton(
+                      text: localizations
+                          .signInText(localizations.signInPasscode),
+                      onPress: () => _pushScreen(Routes.signInPasscode),
+                      backgroundColor: CustomColors.lightBlue,
+                      foregroundColor: CustomColors.white,
+                      icon: const Icon(Icons.sms_outlined,
+                          color: CustomColors.white),
                     ),
                     CustomButton(
                       text: localizations
@@ -123,7 +160,6 @@ class _LoginPageState extends State<LoginPage> {
         message = localizations.signInFacebookError;
         break;
     }
-
     MessageService.getInstance().showMessage(context, message);
   }
 
@@ -186,7 +222,7 @@ class TextFieldPassword extends HookWidget {
 
         return CustomTextField(
           textController: controller,
-          label: localizations.passwordValidation,
+          label: localizations.passwordText,
           isRequired: true,
           requiredMessage: localizations.passwordRequiredMessage,
           onChange: bloc.changePassword,
@@ -201,122 +237,96 @@ class TextFieldPassword extends HookWidget {
   }
 }
 
-// class TextFieldRePassword extends HookWidget {
-//   const TextFieldRePassword({Key? key, required this.bloc}) : super(key: key);
-
-//   final LoginBloc bloc;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = useTextEditingController();
-
-//     return StreamBuilder(
-//       builder: (_, snapshot) {
-//         final localizations = AppLocalizations.of(context)!;
-
-//         controller.value =
-//             controller.value.copyWith(text: bloc.rePassword ?? '');
-
-//         return CustomTextField(
-//           textController: controller,
-//           hint: localizations.emailPlaceholder,
-//           isRequired: true,
-//           requiredMessage: localizations.emailRequiredMessage,
-//           onChange: bloc.changeEmail,
-//           inputType: TextInputType.emailAddress,
-//           action: TextInputAction.next,
-//           errorText: snapshot.hasError
-//               ? Utils.getTextValidator(
-//                   context, (snapshot.error as TextFieldValidator?)!.validator)
-//               : null,
-//         );
-//       },
-//     );
-//   }
-// }
-
-// class TextFieldSurname extends HookWidget {
-//   const TextFieldSurname({Key? key, required this.bloc}) : super(key: key);
-
-//   final LoginBloc bloc;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = useTextEditingController();
-
-//     return StreamBuilder(
-//       builder: (_, snapshot) {
-//         final localizations = AppLocalizations.of(context)!;
-//         controller.value = controller.value.copyWith(text: bloc.surname ?? '');
-
-//         return CustomTextField(
-//           textController: controller,
-//           hint: localizations.emailPlaceholder,
-//           isRequired: true,
-//           requiredMessage: localizations.emailRequiredMessage,
-//           onChange: bloc.changeEmail,
-//           inputType: TextInputType.emailAddress,
-//           action: TextInputAction.next,
-//           errorText: snapshot.hasError
-//               ? Utils.getTextValidator(
-//                   context, (snapshot.error as TextFieldValidator?)!.validator)
-//               : null,
-//         );
-//       },
-//     );
-//   }
-// }
-
-class SubmitButton extends StatelessWidget {
-  const SubmitButton({
-    Key? key,
-    required this.bloc,
-    required this.onSendMessage,
-    required this.onGoToScreen,
-  }) : super(key: key);
+class TextFieldRePassword extends HookWidget {
+  const TextFieldRePassword({Key? key, required this.bloc}) : super(key: key);
 
   final LoginBloc bloc;
-  final ValueSetter<String> onSendMessage;
-  final VoidCallback onGoToScreen;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<bool>(
-      stream: bloc.isValidData,
-      builder: (_, isValidSnapshot) {
+    final controller = useTextEditingController();
+
+    return StreamBuilder(
+      builder: (_, snapshot) {
         final localizations = AppLocalizations.of(context)!;
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: CustomButton(
-                  text: localizations.signInButton,
-                  onPress: isValidSnapshot.hasData
-                      ? () => _onPressButton(context)
-                      : null,
-                  backgroundColor: CustomColors.lightGreen,
-                  foregroundColor: CustomColors.white,
-                  icon: const Icon(Icons.send, color: CustomColors.white),
-                  direction: IconDirection.right,
-                ),
-              ),
-            ],
-          ),
+        controller.value =
+            controller.value.copyWith(text: bloc.rePassword ?? '');
+
+        return CustomTextField(
+          textController: controller,
+          isRequired: true,
+          label: localizations.rePasswordText,
+          requiredMessage: localizations.rePasswordNotMatch,
+          onChange: bloc.changeRePassword,
+          errorText: snapshot.hasError
+              ? Utils.getTextValidator(
+                  context, (snapshot.error as TextFieldValidator?)!.validator)
+              : null,
+          hasPassword: true,
         );
       },
     );
   }
+}
 
-  Future<void> _onPressButton(BuildContext context) async {
-    final localizations = AppLocalizations.of(context)!;
+class TextFieldSurname extends HookWidget {
+  const TextFieldSurname({Key? key, required this.bloc}) : super(key: key);
 
-    final result = await bloc.authenticate();
-    if (result) {
-      onGoToScreen();
-    } else {
-      onSendMessage(localizations.userPasswordIncorrectMessage);
-    }
+  final LoginBloc bloc;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = useTextEditingController();
+
+    return StreamBuilder(
+      builder: (_, snapshot) {
+        final localizations = AppLocalizations.of(context)!;
+        controller.value = controller.value.copyWith(text: bloc.surname ?? '');
+
+        return CustomTextField(
+          textController: controller,
+          isRequired: true,
+          label: localizations.surnameText,
+          onChange: bloc.changeSurname,
+          action: TextInputAction.next,
+          errorText: snapshot.hasError
+              ? Utils.getTextValidator(
+                  context, (snapshot.error as TextFieldValidator?)!.validator)
+              : null,
+        );
+      },
+    );
+  }
+}
+
+class TextFieldName extends HookWidget {
+  const TextFieldName({Key? key, required this.bloc}) : super(key: key);
+
+  final LoginBloc bloc;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = useTextEditingController();
+
+    return StreamBuilder(
+      builder: (_, snapshot) {
+        final localizations = AppLocalizations.of(context)!;
+        controller.value = controller.value.copyWith(text: bloc.name ?? '');
+
+        return CustomTextField(
+          textController: controller,
+          isRequired: true,
+          label: localizations.nameText,
+          requiredMessage: localizations.nameTextValidation,
+          onChange: bloc.changeName,
+          action: TextInputAction.next,
+          errorText: snapshot.hasError
+              ? Utils.getTextValidator(
+                  context, (snapshot.error as TextFieldValidator?)!.validator)
+              : null,
+        );
+      },
+    );
   }
 }
