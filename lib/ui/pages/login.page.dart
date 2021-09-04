@@ -12,6 +12,8 @@ import 'package:severingthing/ui/common/color.dart';
 import 'package:severingthing/ui/pages/widgets/custom_button.dart';
 import 'package:severingthing/ui/pages/widgets/custom_text_field.dart';
 
+bool isRegister = false;
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
   @override
@@ -28,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
-    var isRegister = false;
+
     return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
       return AnimatedContainer(
           duration: Duration(milliseconds: 500),
@@ -55,8 +57,8 @@ class _LoginPageState extends State<LoginPage> {
                     TextFieldPassword(bloc: loginBloc),
                     if (isRegister) ...[
                       TextFieldRePassword(bloc: loginBloc),
-                      TextFieldSurname(bloc: loginBloc),
-                      TextFieldName(bloc: loginBloc),
+                      TextFieldFirstName(bloc: loginBloc),
+                      TextFieldLastName(bloc: loginBloc),
                     ],
                     //submit  buttom
                     StreamBuilder<bool>(
@@ -64,38 +66,49 @@ class _LoginPageState extends State<LoginPage> {
                             ? loginBloc.isValidDataRegister
                             : loginBloc.isValidDataLogin,
                         builder: (_, isValidSnapshot) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: CustomButton(
-                                    text: localizations.signInButton,
-                                    onPress: isValidSnapshot.hasData
-                                        ? () async {
-                                            final result =
-                                                await loginBloc.authenticate();
-                                            if (result == null) {
-                                              isRegister = true;
+                          return Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: CustomButton(
+                                  text: isRegister
+                                      ? localizations.register
+                                      : localizations.signInButton,
+                                  onPress: isValidSnapshot.hasData
+                                      ? () async {
+                                          final result =
+                                              await loginBloc.authenticate();
+                                          if (result == null) {
+                                            setState(() {
+                                              isRegister = !isRegister;
+                                            });
+                                          } else {
+                                            if (result.statusLogin == 0) {
+                                              _showSnackBar(localizations
+                                                  .userPasswordIncorrectMessage);
                                             } else {
-                                              if (result.statusLogin == 0) {
-                                                _showSnackBar(localizations
-                                                    .userPasswordIncorrectMessage);
-                                              } else {
-                                                await _goToHomeScreen();
-                                              }
+                                              await _goToHomeScreen();
                                             }
                                           }
-                                        : null,
-                                    backgroundColor: CustomColors.lightGreen,
-                                    foregroundColor: CustomColors.white,
-                                    icon: const Icon(Icons.send,
-                                        color: CustomColors.white),
-                                    direction: IconDirection.right,
-                                  ),
+                                        }
+                                      : null,
+                                  backgroundColor: CustomColors.lightGreen,
+                                  foregroundColor: CustomColors.white,
+                                  icon: const Icon(Icons.send,
+                                      color: CustomColors.white),
+                                  direction: IconDirection.right,
                                 ),
-                              ],
-                            ),
+                              ),
+                              if (isRegister)
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isRegister = false;
+                                    });
+                                  },
+                                  child: Text(localizations
+                                      .signInText(localizations.goBack)),
+                                )
+                            ],
                           );
                         }),
                     CustomButton(
@@ -270,8 +283,8 @@ class TextFieldRePassword extends HookWidget {
   }
 }
 
-class TextFieldSurname extends HookWidget {
-  const TextFieldSurname({Key? key, required this.bloc}) : super(key: key);
+class TextFieldFirstName extends HookWidget {
+  const TextFieldFirstName({Key? key, required this.bloc}) : super(key: key);
 
   final LoginBloc bloc;
 
@@ -282,13 +295,14 @@ class TextFieldSurname extends HookWidget {
     return StreamBuilder(
       builder: (_, snapshot) {
         final localizations = AppLocalizations.of(context)!;
-        controller.value = controller.value.copyWith(text: bloc.surname ?? '');
+        controller.value =
+            controller.value.copyWith(text: bloc.firstName ?? '');
 
         return CustomTextField(
           textController: controller,
           isRequired: true,
           label: localizations.surnameText,
-          onChange: bloc.changeSurname,
+          onChange: bloc.changeFirstName,
           action: TextInputAction.next,
           errorText: snapshot.hasError
               ? Utils.getTextValidator(
@@ -300,8 +314,8 @@ class TextFieldSurname extends HookWidget {
   }
 }
 
-class TextFieldName extends HookWidget {
-  const TextFieldName({Key? key, required this.bloc}) : super(key: key);
+class TextFieldLastName extends HookWidget {
+  const TextFieldLastName({Key? key, required this.bloc}) : super(key: key);
 
   final LoginBloc bloc;
 
@@ -312,14 +326,14 @@ class TextFieldName extends HookWidget {
     return StreamBuilder(
       builder: (_, snapshot) {
         final localizations = AppLocalizations.of(context)!;
-        controller.value = controller.value.copyWith(text: bloc.name ?? '');
+        controller.value = controller.value.copyWith(text: bloc.lastName ?? '');
 
         return CustomTextField(
           textController: controller,
           isRequired: true,
           label: localizations.nameText,
           requiredMessage: localizations.nameTextValidation,
-          onChange: bloc.changeName,
+          onChange: bloc.changeLastName,
           action: TextInputAction.next,
           errorText: snapshot.hasError
               ? Utils.getTextValidator(

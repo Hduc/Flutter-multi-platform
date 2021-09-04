@@ -26,11 +26,6 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: backgroundColor,
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
         onPressed: onPress,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +33,7 @@ class CustomButton extends StatelessWidget {
             if (icon != null && direction == IconDirection.left)
               Expanded(
                 child: Padding(
-                    padding: const EdgeInsets.only(right: 5), child: icon),
+                    padding: const EdgeInsets.only(right: 1), child: icon),
               ),
             Expanded(
               flex: 3,
@@ -56,7 +51,7 @@ class CustomButton extends StatelessWidget {
             if (icon != null && direction == IconDirection.right)
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 5),
+                  padding: const EdgeInsets.only(right: 1),
                   child: icon,
                 ),
               ),

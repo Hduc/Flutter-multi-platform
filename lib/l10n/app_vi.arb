@@ -180,5 +180,14 @@
   "nameTextValidation":"Tên vui lòng không để trống",
   "@nameTextValidation":{
     "description":"Name text is required"
+  },
+  "goBack":"Quay lại",
+  "@goBack":{
+    "description":"Go back button"
+  },
+  "register":"Đăng ký",
+  "@register":{
+    "description":"Register button"
   }
+
 }

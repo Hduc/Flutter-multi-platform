@@ -12,8 +12,8 @@ class LoginBloc extends BaseBloc with Validator {
   final _emailSubject = BehaviorSubject<String>();
   final _passwordSubject = BehaviorSubject<String>();
   final _rePasswordSubject = BehaviorSubject<String>();
-  final _surnameSubject = BehaviorSubject<String>();
-  final _nameSubject = BehaviorSubject<String>();
+  final _firstNameSubject = BehaviorSubject<String>();
+  final _lastNameSubject = BehaviorSubject<String>();
 
   Stream<TextFieldValidator> get emailStream =>
       _emailSubject.stream.transform(checkEmail);
@@ -24,10 +24,10 @@ class LoginBloc extends BaseBloc with Validator {
   Stream<TextFieldValidator> get rePasswordStream =>
       _rePasswordSubject.stream.transform(checkPass);
 
-  Stream get surNameStream => _surnameSubject.stream;
+  Stream get firstNameStream => _firstNameSubject.stream;
 
-  Stream<TextFieldValidator> get nameStream =>
-      _nameSubject.stream.transform(checkEmpty);
+  Stream<TextFieldValidator> get lastNameStream =>
+      _lastNameSubject.stream.transform(checkEmpty);
 
   Stream<bool> get isValidDataLogin =>
       Rx.combineLatest2(emailStream, passwordStream,
@@ -36,40 +36,37 @@ class LoginBloc extends BaseBloc with Validator {
       });
 
   Stream<bool> get isValidDataRegister => Rx.combineLatest4(
-          emailStream, passwordStream, rePasswordStream, nameStream,
+          emailStream, passwordStream, rePasswordStream, lastNameStream,
           (TextFieldValidator e, TextFieldValidator p, TextFieldValidator rp,
-              TextFieldValidator n) {
+              TextFieldValidator ln) {
         return e.text != null &&
             p.text != null &&
-            rp.text != null &&
             rp.text == p.text &&
-            n.text != null;
+            ln.text != null;
       });
 
   Function(String) get changeEmail => _emailSubject.sink.add;
   Function(String) get changePassword => _passwordSubject.sink.add;
   Function(String) get changeRePassword => _rePasswordSubject.sink.add;
-  Function(String) get changeSurname => _surnameSubject.sink.add;
-  Function(String) get changeName => _nameSubject.sink.add;
+  Function(String) get changeFirstName => _firstNameSubject.sink.add;
+  Function(String) get changeLastName => _lastNameSubject.sink.add;
 
   String? get email => _emailSubject.valueOrNull;
 
   String? get password => _passwordSubject.valueOrNull;
   String? get rePassword => _rePasswordSubject.valueOrNull;
-  String? get surname => _surnameSubject.valueOrNull;
-  String? get name => _nameSubject.valueOrNull;
+  String? get firstName => _firstNameSubject.valueOrNull;
+  String? get lastName => _lastNameSubject.valueOrNull;
 
   Future<LoginModel?> authenticate() async {
     loading.sink.add(true);
-
-    final token = await _repository.authenticate(
+    final result = await _repository.authenticate(
         _emailSubject.value,
         _passwordSubject.value,
-        _surnameSubject.valueOrNull,
-        _nameSubject.valueOrNull);
-
+        _firstNameSubject.valueOrNull,
+        _lastNameSubject.valueOrNull);
     loading.sink.add(false);
-    return token;
+    return result;
   }
 
   @override
@@ -77,8 +74,8 @@ class LoginBloc extends BaseBloc with Validator {
     _emailSubject.close();
     _passwordSubject.close();
     _rePasswordSubject.close();
-    _surnameSubject.close();
-    _nameSubject.close();
+    _firstNameSubject.close();
+    _lastNameSubject.close();
 
     loading.close();
   }
