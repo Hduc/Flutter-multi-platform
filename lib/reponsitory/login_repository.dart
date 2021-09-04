@@ -38,7 +38,7 @@ class LoginRepository {
   // }
 
   Future<LoginModel?> authenticate(
-      String userName, String password, String surname, String name) async {
+      String userName, String password, String? surname, String? name) async {
     final url = '${AppStrings.baseUrl}/users/authenticate';
 
     final response = await http.post(Uri.parse(url),
@@ -46,11 +46,12 @@ class LoginRepository {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'username': userName,
+          'userName': userName,
           'password': password,
-          'surName': surname,
-          'name': name
+          'surname': surname ?? '',
+          'name': name ?? ''
         }));
+
     if (response.statusCode == 200) {
       return loginModelFromJson(response.body);
     }

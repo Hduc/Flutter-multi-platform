@@ -1,3 +1,3 @@
 class AppStrings {
-  static String baseUrl = 'https://localhost:44307';
+  static String baseUrl = 'http://localhost:51602';
 }

@@ -62,8 +62,11 @@ class LoginBloc extends BaseBloc with Validator {
   Future<LoginModel?> authenticate() async {
     loading.sink.add(true);
 
-    final token = await _repository.authenticate(_emailSubject.value,
-        _passwordSubject.value, _surnameSubject.value, _nameSubject.value);
+    final token = await _repository.authenticate(
+        _emailSubject.value,
+        _passwordSubject.value,
+        _surnameSubject.valueOrNull,
+        _nameSubject.valueOrNull);
 
     loading.sink.add(false);
     return token;
