@@ -14,11 +14,10 @@ class AppManager extends ChangeNotifier {
   void initializeMQTTClient({
     required String username,
     required String password,
-    required String identifier,
   }) {
-    _identifier = identifier;
+    _identifier = "identifier";
     _client = MqttServerClient(AppStrings.mqttBorker, _identifier);
-    _client!.port = 1883;
+    _client!.port = AppStrings.mqttBorkerPort;
     _client!.keepAlivePeriod = 20;
     _client!.onDisconnected = onDisconnected;
     _client!.secure = false;

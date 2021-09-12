@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:provider/provider.dart';
 import 'package:severingthing/bloc/facebook_bloc.dart';
 
 import 'package:severingthing/bloc/login_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:severingthing/common/message_service.dart';
 import 'package:severingthing/common/model/text_field_validator.dart';
 import 'package:severingthing/common/routes.dart';
 import 'package:severingthing/common/utils.dart';
+import 'package:severingthing/managers/app_manager.dart';
 import 'package:severingthing/ui/common/color.dart';
 import 'package:severingthing/ui/pages/widgets/custom_button.dart';
 import 'package:severingthing/ui/pages/widgets/custom_text_field.dart';
@@ -21,6 +23,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late AppManager _manager;
+
   @override
   void dispose() {
     loginBloc.dispose();
@@ -30,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
+    _manager = Provider.of<AppManager>(context);
 
     return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
       return AnimatedContainer(
@@ -86,6 +91,12 @@ class _LoginPageState extends State<LoginPage> {
                                               _showSnackBar(localizations
                                                   .userPasswordIncorrectMessage);
                                             } else {
+                                              _manager.initializeMQTTClient(
+                                                  username:
+                                                      loginBloc.email ?? "",
+                                                  password:
+                                                      loginBloc.password ?? "");
+                                              _manager.connect();
                                               await _goToHomeScreen();
                                             }
                                           }
@@ -176,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
     MessageService.getInstance().showMessage(context, message);
   }
 
-  Future _goToHomeScreen() => Navigator.of(context)
+  Future<void> _goToHomeScreen() => Navigator.of(context)
       .pushNamedAndRemoveUntil(Routes.home, (Route<dynamic> route) => false);
 
   Future<void> _pushScreen(String routeName) =>
