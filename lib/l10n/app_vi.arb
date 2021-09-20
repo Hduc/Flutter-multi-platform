@@ -1,0 +1,193 @@
+{
+  "@@locale": "vi",
+  "appName": "Thiết bị thông minh || SEverything",
+  "@appName": {
+    "description": "App title"
+  },
+  "signInText": "Sign in with {option}",
+  "@signInText": {
+    "description": "Sign in with parameter text",
+    "placeholders": {
+      "option": {
+        "type": "String",
+        "example": "Facebook"
+      }
+    }
+  },
+
+  "signInPasscode": "Passcode",
+  "@signInPasscode": {
+    "description": "Sign in with passcode text"
+  },
+  "signInFingerPrint": "Fingerprint",
+  "@signInFingerPrint": {
+    "description": "Sign in with fingerprint text"
+  },
+  "signInFacebook": "Facebook",
+  "@signInFacebook": {
+    "description": "Sign in with facebook text"
+  },
+  "signInFacebookInProgress": "In progress, please wait",
+  "@signInFacebookInProgress": {
+    "description": "Sign in with facebook in progress text message"
+  },
+  "signInFacebookCancelled": "Cancelled by the user",
+  "@signInFacebookCancelled": {
+    "description": "Sign in with facebook cancelled text message"
+  },
+  "signInFacebookError": "Kết nối facebook không thành công",
+  "@signInFacebookError": {
+    "description": "Sign in with facebook error text message"
+  },
+ "emailText": "Email",
+  "@emailText": {
+    "description": "Email text"
+  },
+  "emailRequiredMessage": "Email bắt buộc nhập",
+  "@emailRequiredMessage": {
+    "description": "Message if email is required"
+  },
+  "passwordText": "Nhập mật khẩu",
+  "@passwordText": {
+    "description": "Password text field placeholder"
+  },
+  "passwordRequiredMessage": "Mật khẩu bắt buộc nhập",
+  "@passwordRequiredMessage": {
+    "description": "Message if password is required"
+  },
+  "rePasswordText": "Nhập lại mật khẩu",
+  "@rePasswordText": {
+    "description": "Re-enter password text"
+  },
+  "rePasswordNotMatch": "Mật khẩu không khớp",
+  "@rePasswordNotMatch": {
+    "description": "Password does not match text"
+  },
+  "signInButton": "Đăng nhập",
+  "@signInButton": {
+    "description": "Sign in button text"
+  },
+  "userPasswordIncorrectMessage": "Mật khẩu không chính xác",
+  "@userPasswordIncorrectMessage": {
+    "description": "Message when user or password are incorrect"
+  },
+  "phoneNumberTitle": "Số điện thoại",
+  "@phoneNumberTitle": {
+    "description": "Phone number screen title"
+  },
+  "phoneNumberPlaceholder": "Nhập số điện thoại",
+  "@phoneNumberPlaceholder": {
+    "description": "phone number text field placeholder"
+  },
+  "phoneNumberRequired": "Số điện thoại bắt buộc nhập",
+  "@phoneNumberRequired": {
+    "description": "Message if phone number is required"
+  },
+  "verifyButtonText": "Xác thực",
+  "@verifyButtonText": {
+    "description": "Verify button text"
+  },
+  "passcodeTitle": "Mã xác thực",
+  "@passcodeTitle": {
+    "description": "Passcode screen title"
+  },
+  "phoneNumberIncorrect": "Số điện thoại không chính xác",
+  "@phoneNumberIncorrect": {
+    "description": "Message when phone number is incorrect"
+  },
+  "passcodeIncorrect": "Mã xác thực không chính xác",
+  "@passcodeIncorrect": {
+    "description": "Message when passcode is incorrect"
+  },
+  "biometricTitle": "Chọn để bắt đầu",
+  "@biometricTitle": {
+    "description": "Biometric screen title"
+  },
+  "biometricButtonText": "Nhập đấu văn tay hoặc faceId để bắt đầu",
+  "@biometricButtonText": {
+    "description": "Biometric button text"
+  },
+  "biometricEnabledText": "Bạn vào cài đặt bật đấu vân tay hoặc faceId lên",
+  "@biometricEnabledText": {
+    "description": "Message when biometric is disabled in device"
+  },
+  "biometricNoSupportedText": "Thiết bị của bạn không hỗ trợ vân tay hoặc faceId",
+  "@biometricNoSupportedText": {
+    "description": "Message when biometric is not supported in this device"
+  },
+  "biometricReason": "Vân tay hoặc faceId để bắt đầu",
+  "@biometricReason": {
+    "description": "Message when biometric show dialog"
+  },
+  "biometricError": "Không có quyền truy cập",
+  "@biometricError": {
+    "description": "Biometric message when user is not authorized"
+  },
+  "homeTitle": "Trang chủ",
+  "@homeTitle": {
+    "description": "Home app bar title"
+  },
+  "homeText": "Xin chào",
+  "@homeText": {
+    "description": "Home text in page"
+  },
+  "emptyValidation": "Không bỏ trống trường này",
+  "@emptyValidation": {
+    "description": "Message in text field when is empty"
+  },
+  "passwordValidation": "Mật khẩu ít nhất 4 ký tự",
+  "@passwordValidation": {
+    "description": "Message in text field when password is invalid"
+  },
+  "numberValidation": "Nhập vào số",
+  "@numberValidation": {
+    "description": "Message in text field when text is not numeric"
+  },
+  "notificationTitle": "Severything thông báo",
+  "@notificationTitle": {
+    "description": "Notification title when send a code"
+  },
+  "notificationMessage": "Mã code của bạn {code}",
+  "@notificationMessage": {
+    "description": "Notification text when send a code",
+    "placeholders": {
+      "code": {
+        "type": "String",
+        "example": "0000"
+      }
+    }
+  },
+  "changeLanguageTitle": "Ngôn ngữ",
+  "@changeLanguageTitle": {
+    "description": "Change language title"
+  },
+  "vietNamLanguage": "Tiêng Việt",
+  "@englishLanguage": {
+    "description": "Change language first option text"
+  },
+  "englishLanguage": "Tiếng Anh",
+  "@englishLanguage": {
+    "description": "Change language first option text"
+  },
+  "surnameText":"Họ",
+  "@surnameText":{
+    "description":"Surname text field"
+  },
+  "nameText":"Tên",
+  "@nameText":{
+    "description":"Name text field"
+  },
+  "nameTextValidation":"Tên vui lòng không để trống",
+  "@nameTextValidation":{
+    "description":"Name text is required"
+  },
+  "goBack":"Quay lại",
+  "@goBack":{
+    "description":"Go back button"
+  },
+  "register":"Đăng ký",
+  "@register":{
+    "description":"Register button"
+  }
+
+}
